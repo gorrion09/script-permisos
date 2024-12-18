@@ -1,18 +1,23 @@
 #!/bin/bash
 
 echo "Bienvenido, ¿qué quieres hacer? 
-1) Crear permisos
-2) Crear usuarios
-3) Eliminar carpeta
-4) Eliminar usuarios
-5) Salir
+1) Actualizar el sistema
+2) Crear permisos
+3) Crear usuarios
+4) Eliminar carpeta
+5) Eliminar usuarios
+6) Salir"
 
 read -p "Selecciona una opción: " respuesta
 
-if [ "$respuesta" == "1" ]; then
+if [ "$respuesta" = "1" ]; then
+    sudo apt update && sudo apt upgrade -y
+    fi
+
+if [ "$respuesta" = "2" ]; then
     echo "Has elegido crear permisos."
 
-    read -p "Introduce la ruta completa donde crear la carpeta (Estas en el directorio /home/batoi/Escritorio/scripts) : " ruta_carpeta
+    read -p "'Introduce la ruta completa donde crear la carpeta (Estas en el directorio /home/batoi/Escritorio/scripts) : '" ruta_carpeta
 
     if [ -d "$ruta_carpeta" ]; then
         echo "La carpeta '$ruta_carpeta' ya existe."
@@ -41,7 +46,7 @@ if [ "$respuesta" == "1" ]; then
 
     echo "Carpeta '$ruta_carpeta' creada correctamente y solo visible para el grupo '$respuesta_permisos'."
 
-elif [ "$respuesta" == "2" ]; then
+elif [ "$respuesta" = "3" ]; then
     
     echo "Has elegido crear usuarios."
     
@@ -78,7 +83,7 @@ elif [ "$respuesta" == "2" ]; then
         fi
     fi
 
-elif [ "$respuesta" == "3" ]; then
+elif [ "$respuesta" = "4" ]; then
     echo "Has elegido eliminar carpeta."   
     read -p "Introduce la ruta completa de la carpeta a eliminar: " ruta_carpeta
 
@@ -90,9 +95,9 @@ elif [ "$respuesta" == "3" ]; then
         exit 1
     fi
 
-elif [ "$respuesta" == "4" ]; then
+elif [ "$respuesta" = "5" ]; then
     echo "Has elegido eliminar usuarios."
-    read -p "¿Que usuarios quieres eliminar?" nombre_usuario
+    read -p "Introduce el nombre del usuario que quieres eliminar: " nombre_usuario
 
     if id "$nombre_usuario" &>/dev/null; then
         sudo userdel -r "$nombre_usuario"
@@ -102,11 +107,11 @@ elif [ "$respuesta" == "4" ]; then
         exit 1
     fi
 
-elif [ "$respuesta" == "5" ]; then
+elif [ "$respuesta" = "6" ]; then
     echo "Has elegido salir."
     exit 0
 
 
 else
-    echo "Opción no válida. Inténtalo de nuevo."
+    echo "Opción no válida. Inténtalo de nuevo"
 fi
